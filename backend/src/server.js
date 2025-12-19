@@ -2,6 +2,7 @@ import express from "express";
 import notesRoutes from "./routes/notesRoutes.js";
 import { connectDB } from "./config/db.js";
 import dotenv from "dotenv";
+import rateLimiter from "./middleware/rateLimiter.js";
 //const express = require("express");
 
 dotenv.config();
@@ -15,6 +16,7 @@ connectDB();
 
 //middleware
 app.use(express.json());
+app.use(rateLimiter);
 
 app.use((req, res, next) => {
   console.log(`Request method is ${req.method} and request url is ${req.url}`);
